@@ -1,3 +1,5 @@
+// EZAES.cpp
+
 #include "EZAES.h"
 #include "Common.h"
 
@@ -105,7 +107,10 @@ BOOL EZAES::fnbEncrypt(PUCHAR pbPlain, ULONG cbPlain, PUCHAR pbCipher, ULONG cbC
 		*pcbResult = cbData;
 
 	if (cbCipher < cbData)
+	{
+		DEBUG("Not enough memory space\n");
 		return FALSE;
+	}
 
 	if (!NT_SUCCESS(status = BCryptEncrypt(m_hKey, pbPlain, cbPlain, nullptr, m_pbIV, m_cbIV, pbCipher, cbData, &cbData, 0)))
 	{
@@ -121,7 +126,28 @@ BOOL EZAES::fnbEncrypt(PUCHAR pbPlain, ULONG cbPlain, PUCHAR pbCipher, ULONG cbC
 
 BOOL EZAES::fnbDecrypt(PUCHAR pbCipher, ULONG cbCipher, PUCHAR pbPlain, ULONG cbPlain, PUCHAR pcbResult)
 {
+	NTSTATUS status = STATUS_UNSUCCESSFUL;
+	ULONG cbData;
+	if (!NT_SUCCESS(status = BCryptDecrypt(m_hKey, pbCipher, cbCipher, nullptr, m_pbIV, m_cbIV, nullptr, 0, &cbData, 0)))
+	{
+		DEBUG("BCryptDecrypt#1 returns 0x%x\n", status);
+		return FALSE;
+	}
 
+	if (pcbResult)
+		*pcbResult = cbData;
+
+	if (cbPlain < cbData)
+	{
+		DEBUG("Not enough memory space.\n");
+		return FALSE;
+	}
+
+	if (!NT_SUCCESS(status = BCryptDecrypt(m_hKey, pbCipher, cbCipher, nullptr, m_pbIV, m_cbIV, pbPlain, cbData, &cbData, 0)))
+	{
+		DEBUG("BCryptDecrypt#2 returns 0x%x\n", status);
+		return FALSE;
+	}
 
 	return TRUE;
 }

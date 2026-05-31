@@ -1,3 +1,5 @@
+// HybridCrypt.h
+
 #pragma once
 
 #include <Windows.h>
@@ -18,8 +20,8 @@ struct stEncHeader
 class HybridCrypt
 {
 public:
-	HybridCrypt() = default;
-	~HybridCrypt() = default;
+	HybridCrypt();
+	~HybridCrypt();
 
 	
 };
