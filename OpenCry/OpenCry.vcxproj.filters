@@ -27,6 +27,12 @@
     <ClCompile Include="HybridCrypt.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="EZAES.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EZRSA.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -39,6 +45,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="HybridCrypt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EZAES.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EZRSA.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

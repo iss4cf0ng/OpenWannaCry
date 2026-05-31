@@ -19,7 +19,11 @@ bool FileIO::fnReadFile(const std::wstring& szPath, std::vector<uint8_t>& abData
 
 bool FileIO::fnWriteFile(const std::wstring& szPath, const std::vector<uint8_t>& abData)
 {
+	std::ofstream fs(szPath, std::ios::binary);
+	if (!fs)
+		return false;
 
+	fs.write((char*)abData.data(), abData.size());
 
 	return false;
 }
